@@ -2,6 +2,17 @@ FROM ubuntu:16.04
 
 ENV container docker
 
+# CA Certificates and openssl - support TLS
+# net tools - support testinfra during role testing
+# Pip - to support reasonable python package installation
+# ssh - so we can talk to the instance with Ansible
+RUN apt-get update && apt-get install -y \
+    ca-certificates \
+    net-tools \
+    openssl \
+    python-pip \
+    ssh
+
 # Don't start any optional services except for the few we need.
 RUN find /etc/systemd/system \
          /lib/systemd/system \
