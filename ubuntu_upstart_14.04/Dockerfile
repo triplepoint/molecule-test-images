@@ -3,11 +3,13 @@ FROM ubuntu:14.04
 ENV container docker
 
 # CA Certificates and openssl - support TLS
+# curl - supports some ansible fallback assumptions
 # net tools - support testinfra during role testing
 # Pip - to support reasonable python package installation
 # ssh - so we can talk to the instance with Ansible
 RUN apt-get update && apt-get install -y \
     ca-certificates \
+    curl \
     net-tools \
     openssl \
     python-pip \
