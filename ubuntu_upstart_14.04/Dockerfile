@@ -19,8 +19,8 @@ RUN apt-get update && apt-get install -y \
 
 # Make sure Pip and friends are up to the latest version.
 RUN pip install --upgrade \
-    pip
-    setuptools
+    pip \
+    setuptools \
     wheel
 
 ADD init-fake.conf /etc/init/fake-container-events.conf

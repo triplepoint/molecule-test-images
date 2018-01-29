@@ -20,12 +20,12 @@ RUN apt-get update && apt-get install -y \
 # Make sure Pip and friends are up to the latest version.
 # Upgrade the necessary components to ensure Python can handle SNI and TLS.
 RUN pip install --upgrade \
-    ndg-httpsclient
-    pip
-    pyasn1
-    pyOpenSSL
-    setuptools
-    urllib3
+    ndg-httpsclient \
+    pip \
+    pyasn1 \
+    pyOpenSSL \
+    setuptools \
+    urllib3 \
     wheel
 
 # Don't start any optional services except for the few we need.
