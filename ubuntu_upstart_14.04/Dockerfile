@@ -1,4 +1,5 @@
 FROM ubuntu:14.04
+LABEL maintainer="Jonathan Hanson (jonathan@jonathan-hanson.org)"
 
 ENV container docker
 
@@ -8,12 +9,19 @@ ENV container docker
 # Pip - to support reasonable python package installation
 # ssh - so we can talk to the instance with Ansible
 RUN apt-get update && apt-get install -y \
-    ca-certificates \
-    curl \
-    net-tools \
-    openssl \
-    python-pip \
-    ssh
+        ca-certificates \
+        curl \
+        net-tools \
+        openssl \
+        python-pip \
+        ssh \
+    && rm -rf /var/lib/apt/lists/*
+
+# Make sure Pip and friends are up to the latest version.
+RUN pip install --upgrade \
+    pip
+    setuptools
+    wheel
 
 ADD init-fake.conf /etc/init/fake-container-events.conf
 

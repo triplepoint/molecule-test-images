@@ -1,4 +1,5 @@
 FROM ubuntu:16.04
+LABEL maintainer="Jonathan Hanson (jonathan@jonathan-hanson.org)"
 
 ENV container docker
 
@@ -8,12 +9,24 @@ ENV container docker
 # Pip - to support reasonable python package installation
 # ssh - so we can talk to the instance with Ansible
 RUN apt-get update && apt-get install -y \
-    ca-certificates \
-    curl \
-    net-tools \
-    openssl \
-    python-pip \
-    ssh
+        ca-certificates \
+        curl \
+        net-tools \
+        openssl \
+        python-pip \
+        ssh \
+    && rm -rf /var/lib/apt/lists/*
+
+# Make sure Pip and friends are up to the latest version.
+# Upgrade the necessary components to ensure Python can handle SNI and TLS.
+RUN pip install --upgrade \
+    ndg-httpsclient
+    pip
+    pyasn1
+    pyOpenSSL
+    setuptools
+    urllib3
+    wheel
 
 # Don't start any optional services except for the few we need.
 RUN find /etc/systemd/system \
