@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
         ca-certificates \
         curl \
         net-tools \
+        openssh-server \
         openssl \
         python-pip \
         ssh \
