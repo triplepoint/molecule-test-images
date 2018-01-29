@@ -22,6 +22,13 @@ ADD https://bootstrap.pypa.io/get-pip.py /tmp/
 RUN python /tmp/get-pip.py \
     && rm /tmp/get-pip.py
 
+# Upgrade the necessary components to ensure Python can handle SNI and TLS.
+RUN pip install --upgrade \
+    ndg-httpsclient \
+    pyasn1 \
+    pyOpenSSL \
+    urllib3
+
 ADD init-fake.conf /etc/init/fake-container-events.conf
 
 # undo some hacks of the base image

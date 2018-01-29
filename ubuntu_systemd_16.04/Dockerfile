@@ -22,13 +22,6 @@ ADD https://bootstrap.pypa.io/get-pip.py /tmp/
 RUN python /tmp/get-pip.py \
     && rm /tmp/get-pip.py
 
-# Upgrade the necessary components to ensure Python can handle SNI and TLS.
-RUN pip install --upgrade \
-    ndg-httpsclient \
-    pyasn1 \
-    pyOpenSSL \
-    urllib3
-
 # Don't start any optional services except for the few we need.
 RUN find /etc/systemd/system \
          /lib/systemd/system \
