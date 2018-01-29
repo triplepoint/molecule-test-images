@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
         openssl \
         python \
         ssh \
+        tzdata \
     && rm -rf /var/lib/apt/lists/*
 
 # Make sure Pip and friends are up to the latest version.
