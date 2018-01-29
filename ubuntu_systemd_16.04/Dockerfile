@@ -12,22 +12,22 @@ RUN apt-get update && apt-get install -y \
         ca-certificates \
         curl \
         net-tools \
-        openssh-server \
         openssl \
-        python-pip \
+        python \
         ssh \
     && rm -rf /var/lib/apt/lists/*
 
 # Make sure Pip and friends are up to the latest version.
+ADD https://bootstrap.pypa.io/get-pip.py /tmp/
+RUN python /tmp/get-pip.py \
+    && rm /tmp/get-pip.py
+
 # Upgrade the necessary components to ensure Python can handle SNI and TLS.
 RUN pip install --upgrade \
     ndg-httpsclient \
-    pip \
     pyasn1 \
     pyOpenSSL \
-    setuptools \
-    urllib3 \
-    wheel
+    urllib3
 
 # Don't start any optional services except for the few we need.
 RUN find /etc/systemd/system \

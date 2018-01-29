@@ -12,17 +12,15 @@ RUN apt-get update && apt-get install -y \
         ca-certificates \
         curl \
         net-tools \
-        openssh-server \
         openssl \
-        python-pip \
+        python \
         ssh \
     && rm -rf /var/lib/apt/lists/*
 
 # Make sure Pip and friends are up to the latest version.
-RUN pip install --upgrade \
-    pip \
-    setuptools \
-    wheel
+ADD https://bootstrap.pypa.io/get-pip.py /tmp/
+RUN python /tmp/get-pip.py \
+    && rm /tmp/get-pip.py
 
 ADD init-fake.conf /etc/init/fake-container-events.conf
 
