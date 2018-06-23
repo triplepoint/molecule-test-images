@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 LABEL maintainer="Jonathan Hanson (jonathan@jonathan-hanson.org)"
 
 ENV container docker
@@ -24,6 +24,7 @@ RUN apt-get update && apt-get install -y \
         openssl \
         python \
         ssh \
+        systemd \
         tzdata \
     && rm -rf /var/lib/apt/lists/*
 
@@ -33,6 +34,7 @@ RUN python /tmp/get-pip.py \
     && rm /tmp/get-pip.py
 
 RUN systemctl set-default multi-user.target
+RUN systemctl mask dev-hugepages.mount sys-fs-fuse-connections.mount
 
 STOPSIGNAL SIGRTMIN+3
 
